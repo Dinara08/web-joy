@@ -1,5 +1,6 @@
 import { Table, Space } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import { useAppSelector } from "../hook";
 
 interface DataType {
   key: string;
@@ -9,6 +10,10 @@ interface DataType {
   tags: string[];
 }
 const CustomTable: React.FC = () => {
+  const posts = useAppSelector((state) => state);
+
+  console.log("posts", posts);
+
   const columns: ColumnsType<DataType> = [
     {
       title: "Name",

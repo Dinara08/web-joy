@@ -8,14 +8,14 @@ type Post = {
 };
 
 type PostState = {
-  posts: Post[];
+  list: Post[];
   loading: boolean;
 };
 
 export const fetchPosts = createAsyncThunk<Post[], undefined, {}>(
   "@posts/fetchPosts",
   async function (_, {}) {
-    const response = await axios(
+    const response = await axios.get(
       "https://jsonplaceholder.typicode.com/posts?_limit=10"
     );
 
@@ -26,7 +26,7 @@ export const fetchPosts = createAsyncThunk<Post[], undefined, {}>(
 );
 
 const initialState: PostState = {
-  posts: [],
+  list: [],
   loading: false,
 };
 
