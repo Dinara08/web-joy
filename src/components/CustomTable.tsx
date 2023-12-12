@@ -1,18 +1,24 @@
-import { Table, Space } from "antd";
+import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { useAppSelector } from "../hook";
+import { useAppDispatch, useAppSelector } from "../hook";
+import { useEffect } from "preact/hooks";
+import { fetchPosts } from "../store/postSlice";
 
 interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
+  id: string;
+  title: string;
+  body: string;
 }
 const CustomTable: React.FC = () => {
-  const posts = useAppSelector((state) => state);
+  const posts = useAppSelector((state) => state.posts.list);
+
+  const dispatch = useAppDispatch();
 
   console.log("posts", posts);
+
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
 
   const columns: ColumnsType<DataType> = [
     {
@@ -30,46 +36,25 @@ const CustomTable: React.FC = () => {
       dataIndex: "address",
       key: "address",
     },
-    {
-      title: "Tags",
-      key: "tags",
-      dataIndex: "tags",
-    },
-    {
-      title: "Action",
-      key: "action",
-      render: (_, record) => (
-        <Space size="middle">
-          <a>Invite {record.name}</a>
-          <a>Delete</a>
-        </Space>
-      ),
-    },
   ];
 
-  const data: DataType[] = [
-    {
-      key: "1",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      tags: ["nice", "developer"],
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      tags: ["loser"],
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
-    },
-  ];
+  // const data: DataType[] = [
+  //   {
+  //     id: "1",
+  //     title: "John Brown",
+  //     body: "body",
+  //   },
+  //   {
+  //     id: "2",
+  //     title: "Jim Green",
+  //     body: "body",
+  //   },
+  //   {
+  //     id: "3",
+  //     title: "Joe Black",
+  //     body: "body",
+  //   },
+  // ];
 
   return <Table columns={columns} dataSource={data} />;
 };
