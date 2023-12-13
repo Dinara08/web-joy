@@ -1,18 +1,21 @@
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useAppDispatch, useAppSelector } from "../hook";
-import { useEffect } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import { fetchPosts } from "../store/postSlice";
 
 interface DataType {
-  id: string;
+  id: number;
   title: string;
   body: string;
+  loading: boolean;
 }
 const CustomTable: React.FC = () => {
   const posts = useAppSelector((state) => state.posts.list);
 
   const dispatch = useAppDispatch();
+
+  const [loading, setLoading] = useState(false);
 
   console.log("posts", posts);
 
@@ -22,18 +25,18 @@ const CustomTable: React.FC = () => {
 
   const columns: ColumnsType<DataType> = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Id",
+      dataIndex: "id",
+      key: "id",
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
     },
     {
-      title: "Address",
-      dataIndex: "address",
+      title: "Body",
+      dataIndex: "body",
       key: "address",
     },
   ];
@@ -56,7 +59,7 @@ const CustomTable: React.FC = () => {
   //   },
   // ];
 
-  return <Table columns={columns} dataSource={data} />;
+  return <Table columns={columns} dataSource={posts} />;
 };
 
 export default CustomTable;
