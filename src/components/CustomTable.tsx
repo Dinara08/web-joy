@@ -1,21 +1,21 @@
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useAppDispatch, useAppSelector } from "../hook";
-import { useEffect, useState } from "preact/hooks";
+import { useEffect} from "preact/hooks";
 import { fetchPosts } from "../store/postSlice";
 
 interface DataType {
   id: number;
   title: string;
   body: string;
-  loading: boolean;
+  // loading: boolean;
 }
 const CustomTable: React.FC = () => {
   const posts = useAppSelector((state) => state.posts.list);
 
   const dispatch = useAppDispatch();
 
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   console.log("posts", posts);
 
