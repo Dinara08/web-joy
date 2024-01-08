@@ -17,7 +17,7 @@ const CustomTable: React.FC = () => {
 
   // const [loading, setLoading] = useState(false);
 
-  console.log("posts", posts);
+  // console.log("posts", posts);
 
   useEffect(() => {
     dispatch(fetchPosts());

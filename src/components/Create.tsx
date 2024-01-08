@@ -1,9 +1,10 @@
 // import { useState } from 'react';
 import { useState} from "preact/hooks";
-import {Button, Modal, Form, Input} from 'antd';
-import {useForm} from 'react-hook-form';
+import {Button, Modal, Input} from 'antd';
+import {useForm, SubmitHandler} from 'react-hook-form';
 
-const Create = () => {
+
+const Create:React.FC = () => {
 
     //modal
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,65 +22,43 @@ const Create = () => {
     }
 
 
-
     //form
-    type FieldType = {
+    type FormValues = {
         title?: string,
         body?: string
     }
 
 
-   const onFinish = (values: any) => {
-       console.log('Success:', values);
-   }
-   const onFinishFailed = (errorInfo: any) => {
-       console.log('Failed:', errorInfo);
-   }
+   // const onFinish = (values: any) => {
+   //     console.log('Success:', values);
+   // }
+   // const onFinishFailed = (errorInfo: any) => {
+   //     console.log('Failed:', errorInfo);
+   // }
 
    //react-hook-form
     const {register, handleSubmit} = useForm();
 
-    const onSubmit = () => {
-        console.log('data')
+    const onSubmit:SubmitHandler<FormValues> = (data) => {
+        console.log('data',data);
     }
 
 
     return (
         <div className="create-block">
-          <Button type="primary" onClick={showModal}>
-              Create
-          </Button>
-            <Modal title="Create post" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
-            footer={[
-                <Button key="back" onClick={handleCancel}>
-                    Close
-                </Button>,
-                <Button key="submit" type="primary"  onClick={handleOk}>
-                    Submit
-                </Button>
+            <Button type="primary" onClick={showModal}>
+                Create
+            </Button>
+            <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <form onSubmit={handleSubmit(onSubmit)}>
 
-            ]}
-            >
-              <Form
-                  name="basic"
-                  style={{ maxWidth: 600 }}
-                  autoComplete="off"
-                  onFinish={onFinish}
-                  onFinishFailed={onFinishFailed}
-                  handleSubmit={onSubmit}
-              >
-                  <Form.Item<FieldType> label="Title" name="title">
-                      <Input {...register('title')}
-                      />
-                  </Form.Item>
-                  <Form.Item<FieldType> label="Body" name="body">
-                      <Input {...register('body')}/>
-                  </Form.Item>
-
-
-
-              </Form>
+                    <Input placeholder="Basic usage" {...register("title")}/>
+                    <Input placeholder="Basic usage" {...register("body")}/>
+                    <input type="submit" />
+                </form>
             </Modal>
+
+
         </div>
     )
 };
