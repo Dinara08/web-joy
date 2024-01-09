@@ -1,6 +1,6 @@
 // import { useState } from 'react';
 import { useState} from "preact/hooks";
-import {Button, Modal, Input} from 'antd';
+import {Button, Modal} from 'antd';
 import {useForm, SubmitHandler} from 'react-hook-form';
 
 
@@ -52,12 +52,14 @@ const Create:React.FC = () => {
             <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <form onSubmit={handleSubmit(onSubmit)}>
 
-                    <Input placeholder="Basic usage" {...register("title")}/>
-                    <Input placeholder="Basic usage" {...register("body")}/>
-                    <input type="submit" />
+                    {/*<Input placeholder="Basic usage" {...register("title")}/>*/}
+                    {/*<Input placeholder="Basic usage" {...register("body")}/>*/}
+                    <input type="text" {...register("title")}/>
+                    <input type="text" {...register("body")}/>
+
+                    <input type="submit"/>
                 </form>
             </Modal>
-
 
         </div>
     )

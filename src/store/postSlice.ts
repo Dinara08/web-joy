@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { v4 as uuid } from 'uuid';
 
 type Post = {
   id: number;
@@ -9,7 +10,6 @@ type Post = {
 
 type PostState = {
   list: Post[];
-  loading: boolean;
 };
 
 export const fetchPosts = createAsyncThunk<Post[]>(
@@ -23,9 +23,24 @@ export const fetchPosts = createAsyncThunk<Post[]>(
   }
 );
 
+export const createPost = createAsyncThunk<unknown, Post>(
+'createPost',
+    async function(body , {rejectWithValue, dispatch}) {
+  try {
+    // const post = {
+    //   title: text,
+    //   id: uuid(),
+    //   body:
+    // }
+  }
+  catch(error) {
+    error.rejectWithValue(error.message)
+  }
+    }
+)
+
 const initialState: PostState = {
   list: [],
-  loading: false,
 };
 
 export const postSlice = createSlice({
@@ -35,12 +50,15 @@ export const postSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchPosts.pending, (state) => {
-        state.loading = true;
+
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.list = action.payload;
-        state.loading = false;
-      });
+
+      })
+        .addCase(fetchPosts.rejected, (state, action) => {
+
+        })
   },
 });
 
