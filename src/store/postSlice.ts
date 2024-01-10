@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { v4 as uuid } from 'uuid';
+// import { v4 as uuid } from 'uuid';
 
 type Post = {
   id: number;
@@ -23,19 +23,28 @@ export const fetchPosts = createAsyncThunk<Post[]>(
   }
 );
 
-export const createPost = createAsyncThunk<unknown, Post>(
+export const createPost = createAsyncThunk<Post, string>(
 'createPost',
-    async function(body , {rejectWithValue, dispatch}) {
-  try {
+    async function(body , {rejectWithValue,  }) {
+
     // const post = {
     //   title: text,
     //   id: uuid(),
-    //   body:
+    //   body
     // }
-  }
-  catch(error) {
-    error.rejectWithValue(error.message)
-  }
+
+      try {
+       const responce =  await axios.post("https://jsonplaceholder.typicode.com/posts", body);
+
+        // return (await responce.json()) as Post;
+
+        // const data = await responce.json();
+        // console.log("data", data);
+      }
+      catch (err) {
+        return rejectWithValue("Something went wrong...")
+      }
+
     }
 )
 
@@ -49,16 +58,25 @@ export const postSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchPosts.pending, (state) => {
+      .addCase(fetchPosts.pending, () => {
 
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.list = action.payload;
 
       })
-        .addCase(fetchPosts.rejected, (state, action) => {
+      .addCase(fetchPosts.rejected, () => {
 
+      })
+      // .addCase(createPost.pending, () => {
+      //
+      // })
+        .addCase(createPost.fulfilled, (state, action   ) => {
+            state.list.push(action.payload);
         })
+      //   .addCase(createPost.rejected, () => {
+      //
+      // })
   },
 });
 

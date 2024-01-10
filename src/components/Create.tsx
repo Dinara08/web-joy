@@ -2,9 +2,13 @@
 import { useState} from "preact/hooks";
 import {Button, Modal} from 'antd';
 import {useForm, SubmitHandler} from 'react-hook-form';
+import {useAppDispatch} from "../hook.ts";
+import {createPost} from "../store/postSlice.ts";
 
 
 const Create:React.FC = () => {
+
+    const dispatch = useAppDispatch();
 
     //modal
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,9 +25,9 @@ const Create:React.FC = () => {
         setIsModalOpen(false);
     }
 
-
     //form
     type FormValues = {
+        id?: number,
         title?: string,
         body?: string
     }
@@ -41,6 +45,7 @@ const Create:React.FC = () => {
 
     const onSubmit:SubmitHandler<FormValues> = (data) => {
         console.log('data',data);
+       dispatch(createPost(data));
     }
 
 
