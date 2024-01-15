@@ -2,7 +2,7 @@ import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useAppDispatch, useAppSelector } from "../hook";
 import { useEffect} from "preact/hooks";
-import { fetchPosts } from "../store/postSlice";
+import { getPosts} from "../store/postSlice";
 
 interface DataType {
   id: number;
@@ -20,7 +20,7 @@ const CustomTable: React.FC = () => {
   // console.log("posts", posts);
 
   useEffect(() => {
-    dispatch(fetchPosts());
+    dispatch(getPosts());
   }, [dispatch]);
 
   const columns: ColumnsType<DataType> = [

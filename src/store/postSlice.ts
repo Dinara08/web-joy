@@ -12,7 +12,7 @@ type PostState = {
   list: Post[];
 };
 
-export const fetchPosts = createAsyncThunk<Post[]>(
+export const getPosts = createAsyncThunk<Post[]>(
   "@posts/fetchPosts",
   async function (_, {}) {
     const response = await axios.get(
@@ -23,9 +23,9 @@ export const fetchPosts = createAsyncThunk<Post[]>(
   }
 );
 
-export const createPost = createAsyncThunk<Post, string>(
+export const createPost = createAsyncThunk<unknown, Post>(
 'createPost',
-    async function(body , {rejectWithValue,  }) {
+    async function(body , {rejectWithValue, dispatch }) {
 
     // const post = {
     //   title: text,
@@ -34,12 +34,8 @@ export const createPost = createAsyncThunk<Post, string>(
     // }
 
       try {
-       const responce =  await axios.post("https://jsonplaceholder.typicode.com/posts", body);
-
-        // return (await responce.json()) as Post;
-
-        // const data = await responce.json();
-        // console.log("data", data);
+          await axios.post("https://jsonplaceholder.typicode.com/posts", body)
+           .then(() => dispatch(getPosts));
       }
       catch (err) {
         return rejectWithValue("Something went wrong...")
@@ -58,21 +54,21 @@ export const postSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchPosts.pending, () => {
+      .addCase(getPosts.pending, () => {
 
       })
-      .addCase(fetchPosts.fulfilled, (state, action) => {
+      .addCase(getPosts.fulfilled, (state, action) => {
         state.list = action.payload;
 
       })
-      .addCase(fetchPosts.rejected, () => {
+      .addCase(getPosts.rejected, () => {
 
       })
       // .addCase(createPost.pending, () => {
       //
       // })
-        .addCase(createPost.fulfilled, (state, action   ) => {
-            state.list.push(action.payload);
+        .addCase(createPost.fulfilled, (   ) => {
+            // state.list.push(action.payload);
         })
       //   .addCase(createPost.rejected, () => {
       //

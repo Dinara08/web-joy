@@ -1,7 +1,7 @@
 // import { useState } from 'react';
 import { useState} from "preact/hooks";
 import {Button, Modal} from 'antd';
-import {useForm, SubmitHandler} from 'react-hook-form';
+import {useForm,} from 'react-hook-form';
 import {useAppDispatch} from "../hook.ts";
 import {createPost} from "../store/postSlice.ts";
 
@@ -17,19 +17,21 @@ const Create:React.FC = () => {
         setIsModalOpen(true);
     }
 
-    const handleOk = () => {
-        setIsModalOpen(false);
-    }
+    // const handleOk = () => {
+    //     setIsModalOpen(false);
+    // }
 
     const handleCancel = () => {
+        // dispatch(createPost(data))
         setIsModalOpen(false);
+
     }
 
     //form
-    type FormValues = {
-        id?: number,
-        title?: string,
-        body?: string
+    interface FormValues {
+        id: number,
+        title: string,
+        body: string
     }
 
 
@@ -41,11 +43,24 @@ const Create:React.FC = () => {
    // }
 
    //react-hook-form
-    const {register, handleSubmit} = useForm();
+    const {register,  handleSubmit} = useForm<FormValues>(
+        {
+            defaultValues: {
+                id: 0,
+                title: "",
+                body: ""
+            }
+        }
+    );
 
-    const onSubmit:SubmitHandler<FormValues> = (data) => {
-        console.log('data',data);
-       dispatch(createPost(data));
+    // const onSubmit:SubmitHandler<FormValues> = (data) => {
+    //     console.log('data',data);
+    //    dispatch(createPost(data));
+    // }
+
+    const onSubmit = ({...values}: FormValues) => {
+        dispatch(createPost(values));
+        setIsModalOpen(false);
     }
 
 
@@ -54,7 +69,7 @@ const Create:React.FC = () => {
             <Button type="primary" onClick={showModal}>
                 Create
             </Button>
-            <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            <Modal title="Basic Modal" open={isModalOpen} onCancel={handleCancel}>
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                     {/*<Input placeholder="Basic usage" {...register("title")}/>*/}
