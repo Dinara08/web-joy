@@ -31,6 +31,9 @@ devDependencies:
   '@preact/preset-vite':
     specifier: ^2.6.0
     version: 2.7.0(@babel/core@7.23.5)(preact@10.19.2)(vite@5.0.6)
+  '@types/uuid':
+    specifier: ^9.0.7
+    version: 9.0.7
   typescript:
     specifier: ^5.2.2
     version: 5.3.3
@@ -863,6 +866,10 @@ packages:
   /@types/use-sync-external-store@0.0.3:
     resolution: {integrity: sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==}
     dev: false
+
+  /@types/uuid@9.0.7:
+    resolution: {integrity: sha512-WUtIVRUZ9i5dYXefDEAI7sh9/O7jGvHg7Df/5O/gtH3Yabe5odI3UWopVR1qbPXQtvOxWu3mM4XxlYeZtMWF4g==}
+    dev: true
 
   /ansi-styles@3.2.1:
     resolution: {integrity: sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==}

@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-// import { v4 as uuid } from 'uuid';
+
 
 type Post = {
-  id: number;
+  id: string;
   title: string;
   body: string;
 };
@@ -16,16 +16,16 @@ export const getPosts = createAsyncThunk<Post[]>(
   "@posts/fetchPosts",
   async function (_, {}) {
     const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/posts?_limit=10"
+      "https://jsonplaceholder.typicode.com/posts?_limit=5"
     );
 
     return response.data;
   }
 );
 
-export const createPost = createAsyncThunk<unknown, Post>(
+export const createPost = createAsyncThunk<Post>(
 'createPost',
-    async function(body , {rejectWithValue, dispatch }) {
+    async function(body , {rejectWithValue, }) {
 
     // const post = {
     //   title: text,
@@ -34,8 +34,10 @@ export const createPost = createAsyncThunk<unknown, Post>(
     // }
 
       try {
-          await axios.post("https://jsonplaceholder.typicode.com/posts", body)
-           .then(() => dispatch(getPosts));
+         const response =  await axios.post("https://jsonplaceholder.typicode.com/posts", body)
+           // .then(() => dispatch(getPosts));
+          return response.data;
+         console.log('response', response.data);
       }
       catch (err) {
         return rejectWithValue("Something went wrong...")
@@ -47,6 +49,8 @@ export const createPost = createAsyncThunk<unknown, Post>(
 const initialState: PostState = {
   list: [],
 };
+
+// console.log('initialList', initialState)
 
 export const postSlice = createSlice({
   name: "@posts",
@@ -67,8 +71,9 @@ export const postSlice = createSlice({
       // .addCase(createPost.pending, () => {
       //
       // })
-        .addCase(createPost.fulfilled, (   ) => {
-            // state.list.push(action.payload);
+        .addCase(createPost.fulfilled, (state, action  ) => {
+            state.list.push(action.payload);
+            console.log('action payload: ', action.payload)
         })
       //   .addCase(createPost.rejected, () => {
       //

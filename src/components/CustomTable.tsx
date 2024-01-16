@@ -5,7 +5,7 @@ import { useEffect} from "preact/hooks";
 import { getPosts} from "../store/postSlice";
 
 interface DataType {
-  id: number;
+  id: string;
   title: string;
   body: string;
   // loading: boolean;
@@ -13,14 +13,21 @@ interface DataType {
 const CustomTable: React.FC = () => {
   const posts = useAppSelector((state) => state.posts.list);
 
+
   const dispatch = useAppDispatch();
 
   // const [loading, setLoading] = useState(false);
 
-  // console.log("posts", posts);
+  console.log("posts", posts);
+
+  // useEffect(() => {
+  //   const storedPosts = localStorage.getItem(posts);
+  // }, []);
 
   useEffect(() => {
     dispatch(getPosts());
+
+
   }, [dispatch]);
 
   const columns: ColumnsType<DataType> = [
