@@ -68,16 +68,12 @@ export const postSlice = createSlice({
       .addCase(getPosts.rejected, () => {
 
       })
-      // .addCase(createPost.pending, () => {
-      //
-      // })
+
         .addCase(createPost.fulfilled, (state, action  ) => {
             state.list.push(action.payload);
             console.log('action payload: ', action.payload)
         })
-      //   .addCase(createPost.rejected, () => {
-      //
-      // })
+
   },
 });
 
