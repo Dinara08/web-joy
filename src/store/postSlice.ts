@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
 type Post = {
   id: string;
   title: string;
@@ -23,6 +22,9 @@ export const getPosts = createAsyncThunk<Post[]>(
   }
 );
 
+
+
+
 export const createPost = createAsyncThunk<Post>(
 'createPost',
     async function(body , {rejectWithValue, }) {
@@ -37,7 +39,7 @@ export const createPost = createAsyncThunk<Post>(
          const response =  await axios.post("https://jsonplaceholder.typicode.com/posts", body)
            // .then(() => dispatch(getPosts));
           return response.data;
-         console.log('response', response.data);
+          console.log('response', response.data);
       }
       catch (err) {
         return rejectWithValue("Something went wrong...")
@@ -45,6 +47,24 @@ export const createPost = createAsyncThunk<Post>(
 
     }
 )
+
+
+
+
+export const removePost = createAsyncThunk<Post>(
+    'removePost',
+    async function (id, {rejectWithValue,}) {
+        try {
+          const response = await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
+            return response.data;
+            console.log('response', response.data);
+        }
+        catch (error) {
+            return rejectWithValue("Something went wrong...")
+        }
+    }
+)
+
 
 const initialState: PostState = {
   list: [],
@@ -72,6 +92,9 @@ export const postSlice = createSlice({
         .addCase(createPost.fulfilled, (state, action  ) => {
             state.list.push(action.payload);
             console.log('action payload: ', action.payload)
+        })
+        .addCase(removePost.fulfilled, (state, action) => {
+            state.list = state.list.filter(post => post.id !== action.payload)
         })
 
   },

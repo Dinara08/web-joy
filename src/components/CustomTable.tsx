@@ -1,8 +1,8 @@
-import { Table } from "antd";
+import { Table, Space, Button } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useAppDispatch, useAppSelector } from "../hook";
 import { useEffect} from "preact/hooks";
-import { getPosts} from "../store/postSlice";
+import {getPosts, removePost} from "../store/postSlice";
 
 interface DataType {
   id: string;
@@ -20,15 +20,16 @@ const CustomTable: React.FC = () => {
 
   console.log("posts", posts);
 
-  // useEffect(() => {
-  //   const storedPosts = localStorage.getItem(posts);
-  // }, []);
 
   useEffect(() => {
     dispatch(getPosts());
 
-
   }, [dispatch]);
+
+  const handleRemovePost = () => {
+    removePost();
+    console.log('remove:')
+  }
 
   const columns: ColumnsType<DataType> = [
     {
@@ -45,6 +46,16 @@ const CustomTable: React.FC = () => {
       title: "Body",
       dataIndex: "body",
       key: "address",
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (_, ) => (
+          <Space size="middle">
+            <Button type="primary">Edit</Button>
+            <Button type="primary" danger onClick={handleRemovePost()}>Delete</Button>
+          </Space>
+      ),
     },
   ];
 
