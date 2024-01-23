@@ -20,7 +20,7 @@ function Edit() {
     const handleCancel = () => {
         setOpen(false);
     };
-    
+
     return (
         <div>
             <Button type="primary" onClick={showModal}>
