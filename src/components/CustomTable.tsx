@@ -26,9 +26,10 @@ const CustomTable: React.FC = () => {
 
   }, [dispatch]);
 
-  const handleRemovePost = () => {
-    removePost()
-    console.log('remove:')
+  const handleRemovePost = (id: number) => {
+      console.log(id)
+    // dispatch(removePost(id))
+    // console.log('remove:')
   }
 
 
@@ -70,10 +71,10 @@ const CustomTable: React.FC = () => {
     {
       title: 'Action',
       key: 'action',
-      render: (_, ) => (
+      render: (_, record) => (
           <Space size="middle">
             <Button  onClick={showModal}>Edit</Button>
-            <Button danger onClick={handleRemovePost}>Delete</Button>
+            <Button danger onClick={() => handleRemovePost(record.id)}>Delete</Button>
           </Space>
       ),
     },

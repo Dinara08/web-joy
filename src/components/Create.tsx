@@ -44,7 +44,7 @@ const Create:React.FC = () => {
 
    //react-hook-form (в качестве Generic useForm принимает описание структуры нашей формы, которую мы задали - FormValues)
     //+ можем передать дополнительные параметры
-    const {register,handleSubmit, reset} = useForm<FormValues>(
+    const {register,handleSubmit, control, watch, reset} = useForm<FormValues>(
         {
             defaultValues: {
                 id: uuid(),
@@ -67,6 +67,9 @@ const Create:React.FC = () => {
     }
 
 
+    console.log(watch())
+
+
     return (
         <div className="create-block">
             <Button type="primary" onClick={showModal}>
@@ -80,12 +83,18 @@ const Create:React.FC = () => {
             >
                 <form id="postForm" onSubmit={handleSubmit(onSubmit)}>
 
-                    {/* <Input placeholder="Title" {...register("title")}/>
+                    <Controller
+                        control={control}
+                        render={({ field, }) => (
+                            <Input placeholder="Title" {...field} />
+                        )}
+                        name='title'
+                    />
 
-                    <Input placeholder="Body" {...register("body")}/> */}
+                    <Input placeholder="Body" {...register("body")}/>
 
-                        <input type="text" {...register("title")}/>
-                        <input type="text" {...register("body")}/>
+                        {/*<input type="text" {...register("title")}/>*/}
+                        {/*<input type="text" {...register("body")}/>*/}
 
                     {/*<Button type="primary" htmlType='submit' >Ok</Button>*/}
 

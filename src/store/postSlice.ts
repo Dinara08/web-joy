@@ -56,8 +56,8 @@ export const removePost = createAsyncThunk<Post>(
     async function (id, {rejectWithValue,}) {
         try {
           const response = await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
-            return response.data;
             console.log('response', response.data);
+            return id;
         }
         catch (error) {
             return rejectWithValue("Something went wrong...")
