@@ -4,7 +4,7 @@ import {SubmitHandler, useForm, Controller} from 'react-hook-form';
 import {useAppDispatch} from "../hook.ts";
 import {createPost} from "../store/postSlice.ts";
 import { v4 as uuid } from 'uuid';
-import { Button, Form, Input, Modal } from 'antd';
+import { Button, Modal, Input } from 'antd';
 
 const Create:React.FC = () => {
 
@@ -80,9 +80,9 @@ const Create:React.FC = () => {
             >
                 <form id="postForm" onSubmit={handleSubmit(onSubmit)}>
 
-                    {/*<Input placeholder="Title" {...register("title")}/>*/}
+                    {/* <Input placeholder="Title" {...register("title")}/>
 
-                    {/*<Input placeholder="Body" {...register("body")}/>*/}
+                    <Input placeholder="Body" {...register("body")}/> */}
 
                         <input type="text" {...register("title")}/>
                         <input type="text" {...register("body")}/>

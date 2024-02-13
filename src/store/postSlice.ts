@@ -94,7 +94,8 @@ export const postSlice = createSlice({
             console.log('action payload: ', action.payload)
         })
         .addCase(removePost.fulfilled, (state, action) => {
-            state.list = state.list.filter(post => post.id !== action.payload)
+            state.list = state.list.filter(post => post.id !== action.payload);
+            console.log('action payload', action.payload);
         })
 
   },

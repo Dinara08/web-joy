@@ -1,18 +1,18 @@
-import { Table, Space, Button } from "antd";
+import { Table, Space, Button, Modal } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useAppDispatch, useAppSelector } from "../hook";
 import { useEffect} from "preact/hooks";
 import {getPosts, removePost} from "../store/postSlice";
+import {useState} from "react";
 
 interface DataType {
-  id: string;
+  id: number;
   title: string;
   body: string;
   // loading: boolean;
 }
 const CustomTable: React.FC = () => {
   const posts = useAppSelector((state) => state.posts.list);
-
 
   const dispatch = useAppDispatch();
 
@@ -27,9 +27,29 @@ const CustomTable: React.FC = () => {
   }, [dispatch]);
 
   const handleRemovePost = () => {
-    removePost();
+    removePost()
     console.log('remove:')
   }
+
+
+  //EDIT MODAl
+  const [loading, setLoading] = useState(false);
+    const [open, setOpen] = useState(false);
+
+    const showModal = () => {
+        setOpen(true);
+    };
+
+    const handleOk = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            setOpen(false);
+        }, 3000);
+    };
+    const handleCancel = () => {
+        setOpen(false);
+    };
 
   const columns: ColumnsType<DataType> = [
     {
@@ -52,8 +72,8 @@ const CustomTable: React.FC = () => {
       key: 'action',
       render: (_, ) => (
           <Space size="middle">
-            <Button type="primary">Edit</Button>
-            <Button type="primary" danger onClick={handleRemovePost()}>Delete</Button>
+            <Button  onClick={showModal}>Edit</Button>
+            <Button danger onClick={handleRemovePost}>Delete</Button>
           </Space>
       ),
     },
@@ -77,7 +97,27 @@ const CustomTable: React.FC = () => {
   //   },
   // ];
 
-  return <Table columns={columns} dataSource={posts} />;
+  return (
+    <>
+      <Table columns={columns} dataSource={posts} />
+
+      <div>
+        <Modal
+           open={open}
+           title="Edit post"
+           onOk={handleOk}
+           onCancel={handleCancel}
+           footer={[
+           <Button key="back" onClick={handleCancel}>Cancel</Button>,
+           <Button key="submit" type="primary" loading={loading} onClick={handleOk}>Edit post</Button>,]}>
+              <form id="postForm">
+                  <input type="text"/>
+                  <input type="text"/>
+              </form>
+          </Modal>
+      </div>
+    </>
+  );
 };
 
 export default CustomTable;

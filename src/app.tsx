@@ -1,16 +1,18 @@
 import "./app.css";
-import CustomTable from "./components/CustomTable";
-import Create from "./components/Create.tsx";
-import Edit from "./components/Edit.tsx";
+import Home from "./components/Home.tsx";
+import { Routes, Route } from "react-router-dom";
+import Posts from "./components/Posts.tsx";
+import {Header} from "./components/Header.tsx";
 
 export function App() {
 
-
   return (
-    <>
-        <Edit/>
-        <Create/>
-        <CustomTable />
-    </>
+  <>
+  <Header/>
+    <Routes>
+      <Route path="/" element={<Home/>}>Home</Route>
+      <Route path="/posts" element={<Posts/>}>Posts</Route>
+    </Routes>
+  </>
   );
 }

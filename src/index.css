@@ -32,12 +32,11 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh; */
-  margin: 12px;
+  /* margin: 12px; */
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+ul, li {
+  list-style-type: none;
 }
 
 button {
@@ -62,6 +61,52 @@ button:focus-visible {
 .create-block {
   margin: 12px 0 12px 0;
 }
+
+main {
+  margin: 12px;
+}
+
+header {
+  border-bottom: 1px solid rgb(235, 237, 240);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+}
+
+header h1 {
+  /* font-family: "Satisfy", cursive; */
+  font-family: "Delius", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 36px;
+
+}
+
+header nav {
+  margin-left: 50px;
+ 
+}
+header nav ul {
+  display: flex;
+}
+
+header nav ul li {
+  margin-right: 12px;
+}
+
+header nav ul li a {
+  font-size: 18px;
+  color: darkslategray;
+}
+
+header nav ul li a.active {
+  color: purple;
+}
+
+header nav ul li a:hover {
+  color: purple;
+}
+
 
 @media (prefers-color-scheme: light) {
   :root {
