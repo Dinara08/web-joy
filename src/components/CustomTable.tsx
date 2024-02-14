@@ -27,8 +27,10 @@ const CustomTable: React.FC = () => {
   }, [dispatch]);
 
   const handleRemovePost = (id: number) => {
-      console.log(id)
-    // dispatch(removePost(id))
+      // console.log(id)
+      
+      //add alert
+    dispatch(removePost(id));
     // console.log('remove:')
   }
 

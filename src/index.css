@@ -50,9 +50,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -83,15 +85,15 @@ header h1 {
 }
 
 header nav {
-  margin-left: 50px;
- 
+  margin-left: 70px;
 }
+
 header nav ul {
   display: flex;
 }
 
 header nav ul li {
-  margin-right: 12px;
+  margin-right: 30px;
 }
 
 header nav ul li a {
