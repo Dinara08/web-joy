@@ -85,15 +85,10 @@ const Create:React.FC = () => {
 
                     <Controller control={control} render={({ field, }) => ( <Input placeholder="Title" {...field} style={{marginBottom: 15}}/> )} name='title'/>
 
-                    <Controller control={control} render={({field}) => (<Input placeholder="Body" {...field} /> )} name='body'/>
-
-                  
-                    {/* <Input placeholder="Body" {...register("body")}/> */}
+                    <Controller control={control} render={({field}) => (<Input placeholder="Body" {...field} /> )} name='body'/>    
 
                         {/*<input type="text" {...register("title")}/>*/}
                         {/*<input type="text" {...register("body")}/>*/}
-
-                    {/*<Button type="primary" htmlType='submit' >Ok</Button>*/}
 
                 </form>
             </Modal>

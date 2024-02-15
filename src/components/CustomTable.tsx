@@ -1,9 +1,10 @@
-import { Table, Space, Button, Modal } from "antd";
+import { Table, Space, Button, Modal, Input } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useAppDispatch, useAppSelector } from "../hook";
 import { useEffect} from "preact/hooks";
 import {getPosts, removePost} from "../store/postSlice";
 import {useState} from "react";
+import { Controller, useForm } from "react-hook-form";
 
 interface DataType {
   id: number;
@@ -54,6 +55,20 @@ const CustomTable: React.FC = () => {
         setOpen(false);
     };
 
+    interface FormEditValues {
+      title: string;
+      body: string;
+  }
+
+
+    const {handleSubmit, control, watch, reset} = useForm<FormEditValues>(
+      {
+        defaultValues: {
+            title: "",
+            body: ""
+        }
+      }
+    )
   const columns: ColumnsType<DataType> = [
     {
       title: "Id",
@@ -112,10 +127,14 @@ const CustomTable: React.FC = () => {
            onCancel={handleCancel}
            footer={[
            <Button key="back" onClick={handleCancel}>Cancel</Button>,
-           <Button key="submit" type="primary" loading={loading} onClick={handleOk}>Edit post</Button>,]}>
+           <Button key="submit" type="primary" loading={loading} onClick={handleOk}>Edit</Button>,]}>
               <form id="postForm">
-                  <input type="text"/>
-                  <input type="text"/>
+
+                <Controller control={control}  render={({field}) => (<Input placeholder="Title" {...field} style={{marginBottom: 15}}/>) } name="title"/>
+                <Controller control={control} render={({field}) => (<Input placeholder="Body" {...field} /> )} name='body'/>    
+
+                  {/* <input type="text"/>
+                  <input type="text"/> */}
               </form>
           </Modal>
       </div>
